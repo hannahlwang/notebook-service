@@ -54,11 +54,12 @@ def render_notebook_list_as_html(notebooks):
         )
     
 # Given the data for a note, generate an HTML representation of that note.
-def render_note_as_html(note, references):
+def render_note_as_html(note, references, notebooks):
     return render_template(
         'note.html',
         note=note,
-        references=references
+        references=references,
+        notebooks=notebooks
         )
 
 # Given the data for a reference, generate an HTML representation of that reference.
@@ -167,21 +168,23 @@ class Note(Resource):
     def get(self, note_id):
         error_if_noteid_not_found(note_id)
         references = data['references'].items()
+        notebooks = data['notebooks'].items()
         return make_response(
             render_note_as_html(
-                (data['notes'][note_id]), references), 200)
+                (data['notes'][note_id]), references, notebooks), 200)
 
     def patch(self, note_id):
         error_if_noteid_not_found(note_id)
         note = data['notes'][note_id]
         update = update_note_parser.parse_args()
-        note.setdefault('citation', []).append(update['citation'])
+        note.setdefault('citation', []).append({"@id": 'reference/' + update['citation']})
         references = data['references'].items()
         reference = data['references'][update['citation']]
-        reference.setdefault('related', []).append(note_id)
+        reference.setdefault('related', []).append({"@id": 'note/' + note_id})
+        notebooks = data['notebooks'].items()
         return make_response(
             render_note_as_html(
-                (data['notes'][note_id]), references), 200)
+                (data['notes'][note_id]), references, notebooks), 200)
 
 # Define a resource for getting a JSON representation of a notebook.
 class NoteAsJSON(Resource):
@@ -208,7 +211,7 @@ class Notebook(Resource):
         notes = data['notes'].items()
         for note in notes:
             note_id = note[0]
-            if data['notes'][note_id]['parent'] == notebook_id:
+            if data['notes'][note_id]['parent']['@id'] == 'notebook/' + notebook_id:
                 child_notes.append(note)
         error_if_notebookid_not_found(notebook_id)
         return make_response(
@@ -223,14 +226,14 @@ class Notebook(Resource):
         note['@type'] = "http://schema.org/CreativeWork"
         note['@id'] = 'note/' + note_id
         note['time'] = datetime.isoformat(datetime.now())
-        note['parent']= notebook_id
-        notebook.setdefault('children', []).append(note_id)
+        note['parent']= {"@id": 'notebook/' + notebook_id}
+        notebook.setdefault('children', []).append({"@id": 'note/' + note_id})
         data['notes'][note_id] = note
         notes = data['notes'].items()
         child_notes = []
         for note in notes:
             note_id = note[0]
-            if data['notes'][note_id]['parent'] == notebook_id:
+            if data['notes'][note_id]['parent']['@id'] == 'notebook/' + notebook_id:
                 child_notes.append(note)
         return make_response(
             render_notebook_as_html(notebook, child_notes), 201)

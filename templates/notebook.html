@@ -6,13 +6,17 @@
 	<div class="notes-list">
 		<ul>
 			
-			{% for note_id, note in notes %}
+			{% for child in notebook.children %}
 			<li>
+				{% for note_id, note in notes %}
+				{% if 'note/' + note_id == child['@id'] %}
 				<div rel="item">
 					<a href={{ url_for('note', note_id=note_id) }}>
 						{{ note.title }}
 					</a>
 				</div>
+				{% endif %}
+				{% endfor %}
 			</li>
 			{% endfor %}
 		</ul>

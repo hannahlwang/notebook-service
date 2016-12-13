@@ -11,13 +11,13 @@
 		<ul>
 			{% for citation in note.citation %}
 			<li>
-				<a href={{ url_for('reference', reference_id=citation) }} rel="related">
-					{% for reference_id, reference in references %}
-					{% if reference_id == citation %}
+				{% for reference_id, reference in references %}
+				{% if 'reference/' + reference_id == citation['@id'] %}
+				<a href={{ url_for('reference', reference_id=reference_id) }} rel="related">
 					{{ reference.author }} ({{ reference.time }}).
-					{% endif %}
-					{% endfor %}
 				</a>
+				{% endif %}
+				{% endfor %}
 			</li>
 			{% endfor %}
 		</ul>
@@ -52,5 +52,11 @@
 		  </script>
   	</form>
   	<p><a href={{ url_for('referencelist') }} rel="collection">Add a Reference</a></p>
-	<p><a href={{ url_for('notebook', notebook_id=note.parent) }} rel="collection">Return to Notebook</a></p>
+	<p>
+		{% for notebook_id, notebook in notebooks %}
+		{% if 'notebook/' + notebook_id == note.parent['@id'] %}
+		<a href={{ url_for('notebook', notebook_id=notebook_id) }} rel="collection">Return to Notebook</a>
+		{% endif %}
+		{% endfor %}
+	</p>
 </body>

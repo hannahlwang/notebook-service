@@ -34,7 +34,9 @@
             "title": "My second notebook", 
             "@type": "http://schema.org/CreativeWork",
             "children": [
-                "wpnlw0"
+                {
+                    "@id": "note/wpnlw0"
+                }
             ]
         }, 
         "fhs6jo": {
@@ -43,8 +45,12 @@
             "title": "My first notebook", 
             "@type": "http://schema.org/CreativeWork",
             "children": [
-                "9oap88",
-                "7f86nw"
+                {
+                    "@id": "note/9oap88"
+                },
+                {
+                    "@id": "note/7f86nw"
+                }
             ]
         }
     },
@@ -56,10 +62,14 @@
               "@type": "http://schema.org/CreativeWork", 
               "time": "2014-10-15T07:08:20", 
               "title": "My first note",
-              "parent": "fhs6jo",
+              "parent": {
+                  "@id": "notebook/fhs6jo"
+              },
               "text": "This is a note. Some text.",
               "citation": [
-                  "ho340a"
+                  {
+                      "@id": "reference/ho340a"
+                  }
                 ]
           },
           "7f86nw": {
@@ -67,7 +77,9 @@
               "@type": "http://schema.org/CreativeWork", 
               "time": "2014-10-15T07:08:20", 
               "title": "My second note",
-              "parent": "fhs6jo",
+              "parent": {
+                  "@id": "notebook/fhs6jo"
+              },
               "text": "Blah blah blah."
           },
           "wpnlw0": {
@@ -75,10 +87,13 @@
               "@type": "http://schema.org/CreativeWork", 
               "time": "2014-10-15T07:08:20", 
               "title": "My third note",
-              "parent": "dig73h",
+              "parent": {
+                  "@id": "notebook/dig73h"
+              },
               "text": "words."
           }
       },
+      "@id": "references",
 		"references":
 		{
 			"v46vrw": {
@@ -99,7 +114,9 @@
 				"publisher": "Big Publisher",
 				"place": "New York, NY",
 				"related": [
-                    "9oap88"
+                    {
+                        "@id": "note/9oap88"
+                    }
                 ]
 			}
 		}

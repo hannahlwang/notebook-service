@@ -9,13 +9,13 @@
 		<ul>
 			{% for related in reference.related %}
 			<li>
-				<a href={{ url_for('note', note_id=related) }} rel="related">
-					{% for note_id, note in notes %}
-					{% if note_id == related %}
+				{% for note_id, note in notes %}
+				{% if 'note/' + note_id == related['@id'] %}
+				<a href={{ url_for('note', note_id=note_id) }} rel="related">
 					{{ note.title }}
-					{% endif %}
-					{% endfor %}
 				</a>
+				{% endif %}
+				{% endfor %}
 			</li>
 			{% endfor %}
 		</ul>
