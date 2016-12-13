@@ -20,11 +20,11 @@
 		"parent": "http://schema.org/isPartOf",
 		"children": "http://schema.org/hasPart",
 		"text": "http://schema.org/text",
-		"author": "https://schema.org/author",
-		"publisher": "https://schema.org/publisher",
-		"place": "https://schema.org/locationCreated",
-		"citation": "https://schema.org/citation",
-		"related": { "@reverse": "https://schema.org/citation" }
+		"author": "http://schema.org/author",
+		"publisher": "http://schema.org/publisher",
+		"place": "http://schema.org/locationCreated",
+		"citation": "http://schema.org/citation",
+		"related": { "@reverse": "http://schema.org/citation" }
     }, 
     "@id": "notebooks", 
     "notebooks": {
