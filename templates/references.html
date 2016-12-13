@@ -1,0 +1,44 @@
+<!doctype html>
+<body class="references">
+	<header><h1>References</h1></header>
+	<div class="references-list">
+		<ul>
+			{% for reference_id, reference in references %}
+			<li>
+				<div rel="item">
+					<a href={{ url_for('reference', reference_id=reference_id) }}>
+						<span itemprop="text" property="text"><span class="reference-author">{{ reference.author }} </span><span class="reference-date">({{ reference.time }}). </span></span>
+					</a>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<section class="add-reference">
+		<header><h1>Add Reference</h1></header>
+		<form action={{ url_for('referencelist') }} method="post">
+			<div>
+				<label for="author">Author:</label>
+				<input type="text" id="author" name="author"></input>
+			</div>
+			<div>
+				<label for="time">Publication Date:</label>
+				<input type="text" id="time" name="time"></input>
+			</div>
+			<div>
+				<label for="title">Title:</label>
+				<input type="text" id="title" name="title"></input>
+			</div>
+			<div>
+				<label for="publisher">Publisher:</label>
+				<input type="text" id="publisher" name="publisher"></input>
+			</div>
+			<div>
+				<label for="place">Publication Location:</label>
+				<input type="text" id="place" name="place"></input>
+			</div>
+			<input type="submit" value="Submit">
+		</form>
+	</section>
+	<p><a href={{ url_for('notebooklist') }} rel="collection">Go to Notebooks</a></p>
+</body>

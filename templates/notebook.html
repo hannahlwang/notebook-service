@@ -1,0 +1,35 @@
+<!doctype html>
+<link rel="alternate" type="application/json" href="{{ request.path }}.json">
+<body class="notebook">
+	<a href="{{ request.path }}.json">view data as JSON-LD</a>
+	<header><h1>{{ notebook.title }}</h1><header>
+	<div class="notes-list">
+		<ul>
+			
+			{% for note_id, note in notes %}
+			<li>
+				<div rel="item">
+					<a href={{ url_for('note', note_id=note_id) }}>
+						{{ note.title }}
+					</a>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<section class="new-note">
+		<header><h2>Add Note</h2></header>
+		<form method="post">
+			<div>
+				<label for="title">Title:</label>
+				<input id="title" type="text" name="title" />
+			</div>
+			<div>
+				<label for="text">Text:</label>
+				<textarea id="text" name="text"></textarea>
+			</div>
+			<input type="submit" value="Submit">
+		</form>
+	</section>
+	<a href={{ url_for('notebooklist') }} rel="collection">Return to Notebooks</a>
+</body>

@@ -1,0 +1,56 @@
+<!doctype html>
+<link rel="alternate" type="application/json" href="{{ request.path }}.json">
+<body class="note">
+	<a href="{{ request.path }}.json">view data as JSON-LD</a>
+	<header><h1>{{ note.title }}</h1></header>
+	<section class="note-text">
+		<p>{{ note.text }}</p>
+	</section>
+	<div class="references-list">
+		<h2>References</h2>
+		<ul>
+			{% for citation in note.citation %}
+			<li>
+				<a href={{ url_for('reference', reference_id=citation) }} rel="related">
+					{% for reference_id, reference in references %}
+					{% if reference_id == citation %}
+					{{ reference.author }} ({{ reference.time }}).
+					{% endif %}
+					{% endfor %}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<form class="note-editor" method="patch">
+  		<label>Cite a reference
+  			<select name="citation">
+    			{% for reference_id, reference in references %}
+    			<option value="{{ reference_id }}">
+      			{{ reference.author }} ({{ reference.time }}).
+    			</option>
+    			{% endfor %}
+    		</select>
+  		</label>
+  		<input class="update" type="submit" value="Add reference to note">
+  		<script>
+		    var form = document.querySelector('form.note-editor');
+		    var button = document.querySelector('form.note-editor input.update');
+		
+		    button.addEventListener('click', function (event) {
+		      event.preventDefault();
+		      var request = new XMLHttpRequest();
+		      request.open('PATCH', window.location.pathname);
+		      request.onreadystatechange = function () {
+		        if (XMLHttpRequest.DONE === request.readyState 
+		            && 200 === request.status) {
+		          window.location.reload(true);
+		        }
+		      }
+		      request.send(new FormData(form));
+		    }, false);
+		  </script>
+  	</form>
+  	<p><a href={{ url_for('referencelist') }} rel="collection">Add a Reference</a></p>
+	<p><a href={{ url_for('notebook', notebook_id=note.parent) }} rel="collection">Return to Notebook</a></p>
+</body>

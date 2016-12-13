@@ -1,0 +1,106 @@
+{
+    "@context": {
+        "notes":
+    	{
+			"@id": "http://www.w3.org/2000/01/rdf-schema#member",
+			"@container": "@index"
+    	}, 
+        "notebooks": 
+        {
+            "@container": "@index", 
+            "@id": "http://www.w3.org/2000/01/rdf-schema#member"
+        }, 
+		"references":
+		{
+			"@id": "http://www.w3.org/2000/01/rdf-schema#member",
+			"@container": "@index"
+		},
+        "time": "http://schema.org/dateCreated", 
+        "title": "http://schema.org/name",
+		"parent": "http://schema.org/isPartOf",
+		"children": "http://schema.org/hasPart",
+		"text": "http://schema.org/text",
+		"author": "https://schema.org/author",
+		"publisher": "https://schema.org/publisher",
+		"place": "https://schema.org/locationCreated",
+		"citation": "https://schema.org/citation",
+		"related": { "@reverse": "https://schema.org/citation" }
+    }, 
+    "@id": "notebooks", 
+    "notebooks": {
+        "dig73h": {
+            "@id": "notebook/dig73h", 
+            "time": "2014-10-12T07:08:20", 
+            "title": "My second notebook", 
+            "type": "http://schema.org/CreativeWork",
+            "children": [
+                "wpnlw0"
+            ]
+        }, 
+        "fhs6jo": {
+            "@id": "notebook/fhs6jo",
+            "time": "2014-10-12T05:04:20", 
+            "title": "My first notebook", 
+            "type": "http://schema.org/CreativeWork",
+            "children": [
+                "9oap88",
+                "7f86nw"
+            ]
+        }
+    },
+		"@id": "notes",
+    "notes": 
+      {
+          "9oap88": {
+              "@id": "note/9oap88", 
+              "@type": "http://schema.org/CreativeWork", 
+              "time": "2014-10-15T07:08:20", 
+              "title": "My first note",
+              "parent": "fhs6jo",
+              "text": "This is a note. Some text.",
+              "citation": [
+                  "ho340a"
+                ]
+          },
+          "7f86nw": {
+              "@id": "note/7f86nw", 
+              "@type": "http://schema.org/CreativeWork", 
+              "time": "2014-10-15T07:08:20", 
+              "title": "My second note",
+              "parent": "fhs6jo",
+              "text": "Blah blah blah."
+          },
+          "wpnlw0": {
+              "@id": "note/wpnlw0", 
+              "@type": "http://schema.org/CreativeWork", 
+              "time": "2014-10-15T07:08:20", 
+              "title": "My third note",
+              "parent": "dig73h",
+              "text": "words."
+          }
+      },
+		"references":
+		{
+			"v46vrw": {
+				"@id": "reference/v46vrw",
+				"@type": "http://schema.org/CreativeWork",
+				"author": "Wang, H.",
+				"time": "2016",
+				"title": "Example Title",
+				"publisher": "The Example Journal of Science",
+				"place": "Chapel Hill, NC"
+			},
+			"ho340a": {
+				"@id": "reference/ho340a",
+				"@type": "http://schema.org/CreativeWork",
+				"author": "Person, P.",
+				"time": "2013",
+				"title": "Here's a Title",
+				"publisher": "Big Publisher",
+				"place": "New York, NY",
+				"related": [
+                    "9oap88"
+                ]
+			}
+		}
+}

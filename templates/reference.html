@@ -1,0 +1,24 @@
+<!doctype html>
+<link rel="alternate" type="application/json" href="{{ request.path }}.json">
+<body class="reference">
+	<a href="{{ request.path }}.json">view data as JSON-LD</a>
+	<header><h1>Reference</h1></header>
+	<p><span class="reference-author">{{ reference.author }} </span><span class="reference-date">({{ reference.time }}). </span><span class="reference-title">{{ reference.title }}. </span><span class="reference-publisher">{{ reference.publisher }}. </span><span class="reference-place">{{ reference.place }}.</span></p>
+	<div class="related-notes">
+		<header><h2>Related Notes<h2></header>
+		<ul>
+			{% for related in reference.related %}
+			<li>
+				<a href={{ url_for('note', note_id=related) }} rel="related">
+					{% for note_id, note in notes %}
+					{% if note_id == related %}
+					{{ note.title }}
+					{% endif %}
+					{% endfor %}
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<a href={{ url_for('referencelist') }} rel="collection">Return to Reference List</a>
+</body>
