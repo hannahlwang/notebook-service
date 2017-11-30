@@ -12,7 +12,7 @@ To run it:
    [Flask-RESTful](http://flask-restful.readthedocs.org/en/latest/installation.html) to run `server.py` 
    and [RDFLib](http://rdflib.readthedocs.org/en/latest/) and [JSONLD for RDFLib](https://github.com/RDFLib/rdflib-jsonld) to run the `extractdata.py` script or the `another-server.py` service.
 
-2. Run the helpdesk server:
+2. Run the notebook service server:
    ```
    $ python server.py
    ```
